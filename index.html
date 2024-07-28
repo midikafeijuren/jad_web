@@ -6,6 +6,73 @@
     <title>Game Studio</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .navbar {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .navbar li {
+            display: inline;
+            background-color: #333; /* 菜单背景颜色 */
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-right: 10px; /* 添加右边距 */
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .navbar a:hover {
+            background-color: #555;
+            color: white;
+        }
+
+        .jad-studio {
+            background-color: #a9a9a9;
+            color: white; /* 文字颜色与背景颜色一致 */
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            order: -1; /* 放在最左边 */
+        }
+    </style>
+</head>
 <body>
     <header>
         <nav>
@@ -14,11 +81,22 @@
                 <li><a href="#我们的团队">Our Team</a></li>
                 <li><a href="#我们的故事">Our Story</a></li>
                 <li><a href="#联系我们">Contact Us</a></li>
+                <li class="jad-studio">JAD工作室</li>
             </ul>
         </nav>
     </header>
 
+    <!-- 其他内容 -->
+    <div style="margin-top: 60px;">
+   
+    </div>
+</body>
+</html>
+
+
     <main>
+        
+        
         <section id="我们的项目">
             <h2>我们的项目</h2>
             
@@ -113,7 +191,7 @@
     </main>
 
     <footer>
-        <p>米帝咖啡巨人设计编写 &copy; 2024 JAD工作室版权所有.</p>
+        <p>版权所有 &copy; 2024 JAD工作室. 保留所有权利.</p>
     </footer>
-</body>
+
 </html>
