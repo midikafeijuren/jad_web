@@ -3,6 +3,7 @@ const data = {
     "pink cup(粉红杯)": "project/pinkcup/project_pinkcup.html",
     "hkdog": "project/hkdog/project_hkdog.html",
     "方圆解释器-中文编程" : "project/方圆/project_fangyuan.html"
+    "高一五班运动会照片下载临时入口，如有重要照片请尽快保存！！！" : ""
 };
 
 document.getElementById('searchInput').addEventListener('input', function(e) {
