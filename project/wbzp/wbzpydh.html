@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>照片下载</title>
+    <style>
+        body { margin: 0; font-family: Arial, sans-serif; }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1em;
+            padding: 1em;
+        }
+        .photo {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .loading {
+            text-align: center;
+            padding: 1em;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 1em;
+        }
+        .pagination button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .pagination button:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <h1>照片库</h1>
+    <input type="file" id="filesInput" webkitdirectory directory multiple>
+    <div class="gallery" id="gallery"></div>
+    <div class="loading" id="loading">加载中...</div>
+    <div class="pagination" id="pagination"></div>
+
+    <script>
+        const itemsPerPage = 10;
+        let currentPage = 1;
+        let allFiles = [];
+
+        function displayPhotos(page) {
+            const startIndex = (page - 1) * itemsPerPage;
+            const endIndex = page * itemsPerPage;
+            const gallery = document.getElementById('gallery');
+            gallery.innerHTML = ''; // 清空旧内容
+
+            for (let i = startIndex; i < Math.min(endIndex, allFiles.length); i++) {
+                const file = allFiles[i];
+                const photoDiv = document.createElement('div');
+                photoDiv.className = 'photo lazyload';
+                photoDiv.dataset.src = URL.createObjectURL(file);
+
+                const imgElement = document.createElement('img');
+                imgElement.src = '';
+                imgElement.dataset.src = URL.createObjectURL(file);
+                imgElement.alt = file.name;
+
+                const downloadLink = document.createElement('a');
+                downloadLink.href = URL.createObjectURL(file);
+                downloadLink.download = file.name;
+                downloadLink.innerHTML = '点击下载';
+
+                photoDiv.appendChild(imgElement);
+                photoDiv.appendChild(downloadLink);
+                gallery.appendChild(photoDiv);
+            }
+
+            if (endIndex >= allFiles.length) {
+                document.getElementById('loading').style.display = 'none';
+            } else {
+                document.getElementById('loading').style.display = 'block';
+            }
+        }
+
+        function updatePagination() {
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = ''; // 清空旧按钮
+
+            for (let i = 1; i <= Math.ceil(allFiles.length / itemsPerPage); i++) {
+                const btn = document.createElement('button');
+                btn.textContent = i;
+                btn.onclick = () => {
+                    currentPage = i;
+                    displayPhotos(i);
+                };
+                pagination.appendChild(btn);
+            }
+
+            // 当前页高亮
+            document.querySelector(`#pagination button:nth-child(${currentPage})`).classList.add('active');
+        }
+
+        // 初始化
+        document.getElementById('filesInput').onchange = event => {
+            const files = event.target.files;
+            allFiles = Array.from(files).filter(file => file.type.startsWith('image/'));
+            currentPage = 1;
+            displayPhotos(currentPage);
+            updatePagination();
+        };
+
+        // 懒加载
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.remove('lazyload');
+                    entry.target.querySelector('img').src = entry.target.dataset.src;
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.lazyload').forEach(element => {
+            observer.observe(element);
+        });
+
+        // 监听滚动事件
+        window.addEventListener('scroll', () => {
+            const bottomOfWindow = window.innerHeight + document.documentElement.scrollTop;
+            const bottomOfGallery = document.getElementById('gallery').offsetTop + document.getElementById('gallery').offsetHeight;
+
+            if (bottomOfWindow > bottomOfGallery && currentPage < Math.ceil(allFiles.length / itemsPerPage)) {
+                currentPage++;
+                displayPhotos(currentPage);
+                updatePagination();
+            }
+        });
+    </script>
+</body>
+</html>
