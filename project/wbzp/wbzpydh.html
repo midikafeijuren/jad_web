@@ -2,144 +2,75 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>照片下载</title>
+    <title>下载</title>
     <style>
-        body { margin: 0; font-family: Arial, sans-serif; }
-        .gallery {
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .download-buttons {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1em;
             padding: 1em;
         }
-        .photo {
-            border: 1px solid #ccc;
-            padding: 10px;
-            text-align: center;
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-        .loading {
-            text-align: center;
-            padding: 1em;
-        }
-        .pagination {
+        .download-button {
             display: flex;
             justify-content: center;
-            margin-top: 1em;
-        }
-        .pagination button {
+            align-items: center;
             background-color: #4CAF50;
-            border: none;
             color: white;
-            padding: 8px 16px;
+            text-align: center;
             text-decoration: none;
+            border: none;
+            padding: 20px;
+            font-size: 18px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
-        .pagination button:hover {
-            opacity: 0.8;
+        .download-button:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
-    <h1>照片库</h1>
-    <input type="file" id="filesInput" webkitdirectory directory multiple>
-    <div class="gallery" id="gallery"></div>
-    <div class="loading" id="loading">加载中...</div>
-    <div class="pagination" id="pagination"></div>
+    <div class="download-buttons" id="downloadButtons"></div>
 
     <script>
-        const itemsPerPage = 10;
-        let currentPage = 1;
-        let allFiles = [];
+        // 示例文件名列表
+        const filenames = [
+            'image1.jpg',
+            'image2.jpg',
+            'image3.jpg',
+            'image4.jpg',
+            'image5.jpg',
+            // 添加更多文件名...
+        ];
 
-        function displayPhotos(page) {
-            const startIndex = (page - 1) * itemsPerPage;
-            const endIndex = page * itemsPerPage;
-            const gallery = document.getElementById('gallery');
-            gallery.innerHTML = ''; // 清空旧内容
+        function createDownloadButtons() {
+            const buttonsContainer = document.getElementById('downloadButtons');
+            buttonsContainer.innerHTML = ''; // 清空旧按钮
 
-            for (let i = startIndex; i < Math.min(endIndex, allFiles.length); i++) {
-                const file = allFiles[i];
-                const photoDiv = document.createElement('div');
-                photoDiv.className = 'photo lazyload';
-                photoDiv.dataset.src = URL.createObjectURL(file);
-
-                const imgElement = document.createElement('img');
-                imgElement.src = '';
-                imgElement.dataset.src = URL.createObjectURL(file);
-                imgElement.alt = file.name;
-
-                const downloadLink = document.createElement('a');
-                downloadLink.href = URL.createObjectURL(file);
-                downloadLink.download = file.name;
-                downloadLink.innerHTML = '点击下载';
-
-                photoDiv.appendChild(imgElement);
-                photoDiv.appendChild(downloadLink);
-                gallery.appendChild(photoDiv);
-            }
-
-            if (endIndex >= allFiles.length) {
-                document.getElementById('loading').style.display = 'none';
-            } else {
-                document.getElementById('loading').style.display = 'block';
-            }
-        }
-
-        function updatePagination() {
-            const pagination = document.getElementById('pagination');
-            pagination.innerHTML = ''; // 清空旧按钮
-
-            for (let i = 1; i <= Math.ceil(allFiles.length / itemsPerPage); i++) {
-                const btn = document.createElement('button');
-                btn.textContent = i;
-                btn.onclick = () => {
-                    currentPage = i;
-                    displayPhotos(i);
+            filenames.forEach(filename => {
+                const button = document.createElement('button');
+                button.className = 'download-button';
+                button.textContent = filename;
+                button.onclick = () => {
+                    // 构建文件的URL
+                    const url = `images/${filename}`;
+                    window.location.href = url; // 触发下载
                 };
-                pagination.appendChild(btn);
-            }
-
-            // 当前页高亮
-            document.querySelector(`#pagination button:nth-child(${currentPage})`).classList.add('active');
+                buttonsContainer.appendChild(button);
+            });
         }
 
         // 初始化
-        document.getElementById('filesInput').onchange = event => {
-            const files = event.target.files;
-            allFiles = Array.from(files).filter(file => file.type.startsWith('image/'));
-            currentPage = 1;
-            displayPhotos(currentPage);
-            updatePagination();
-        };
-
-        // 懒加载
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.remove('lazyload');
-                    entry.target.querySelector('img').src = entry.target.dataset.src;
-                }
-            });
-        }, { threshold: 0.5 });
-
-        document.querySelectorAll('.lazyload').forEach(element => {
-            observer.observe(element);
-        });
-
-        // 监听滚动事件
-        window.addEventListener('scroll', () => {
-            const bottomOfWindow = window.innerHeight + document.documentElement.scrollTop;
-            const bottomOfGallery = document.getElementById('gallery').offsetTop + document.getElementById('gallery').offsetHeight;
-
-            if (bottomOfWindow > bottomOfGallery && currentPage < Math.ceil(allFiles.length / itemsPerPage)) {
-                currentPage++;
-                displayPhotos(currentPage);
-                updatePagination();
-            }
-        });
+        createDownloadButtons();
     </script>
 </body>
 </html>
