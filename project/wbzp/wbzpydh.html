@@ -2,36 +2,32 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>下载</title>
+    <title>文件下载页面</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
         }
-        .download-buttons {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1em;
-            padding: 1em;
+        .container {
+            text-align: center;
         }
         .download-button {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #4CAF50;
+            display: inline-block;
+            margin: 10px;
+            padding: 15px 30px;
+            font-size: 16px;
             color: white;
-            text-align: center;
-            text-decoration: none;
+            background-color: #4CAF50;
             border: none;
-            padding: 20px;
-            font-size: 18px;
+            border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            text-decoration: none;
         }
         .download-button:hover {
             background-color: #45a049;
@@ -39,38 +35,11 @@
     </style>
 </head>
 <body>
-    <div class="download-buttons" id="downloadButtons"></div>
-
-    <script>
-        // 示例文件名列表
-        const filenames = [
-            'move.zip',
-            'move2.zip',
-            'move3.zip',
-            'move4.zip',
-            'move5.zip',
-            // 添加更多文件名...
-        ];
-
-        function createDownloadButtons() {
-            const buttonsContainer = document.getElementById('downloadButtons');
-            buttonsContainer.innerHTML = ''; // 清空旧按钮
-
-            filenames.forEach(filename => {
-                const button = document.createElement('button');
-                button.className = 'download-button';
-                button.textContent = filename;
-                button.onclick = () => {
-                    // 构建文件的URL
-                    const url = `images/${filename}`;
-                    window.location.href = url; // 触发下载
-                };
-                buttonsContainer.appendChild(button);
-            });
-        }
-
-        // 初始化
-        createDownloadButtons();
-    </script>
+    <div class="container">
+        <h1>点击下载文件</h1>
+        <a href="move.zip" class="download-button">下载文件（运动员zip）</a>
+        <a href="path/to/yourfile.zip" class="download-button">下载文件2</a>
+        <a href="path/to/yourfile.zip" class="download-button">下载文件3</a>
+    </div>
 </body>
 </html>
