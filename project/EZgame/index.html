@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EZgame - 开源免费的轻量级游戏引擎</title>
+    <style>
+        @keyframes draw {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+        }
+        
+        .section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+            scroll-snap-align: start;
+        }
+        
+        .hero {
+            background: linear-gradient(to bottom, #EBF5FF, #FFFFFF);
+        }
+        
+        .logo {
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s, transform 1s;
+        }
+        
+        .logo.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .logo svg {
+            width: 200px;
+            height: 100px;
+        }
+        
+        .logo path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+        }
+        
+        .logo.visible path {
+            animation: draw 2s ease-in-out forwards;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            color: #3B82F6;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s, transform 1s;
+        }
+        
+        h1.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            color: #666;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s, transform 1s;
+        }
+        
+        .hero p.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .arrow-down {
+            width: 40px;
+            height: 40px;
+            fill: #3B82F6;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s, transform 1s;
+            animation: bounce 2s infinite;
+            animation-play-state: paused;
+            cursor: pointer;
+        }
+        
+        .arrow-down.visible {
+            opacity: 1;
+            transform: translateY(0);
+            animation-play-state: running;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .feature {
+            background-color: #FFFFFF;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        
+        .feature.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .feature-icon {
+            font-size: 4rem;
+            color: #3B82F6;
+            margin-bottom: 1rem;
+        }
+        
+        .feature h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature p {
+            font-size: 1.25rem;
+            max-width: 600px;
+        }
+        
+        .cta {
+            background-color: #3B82F6;
+            color: #FFFFFF;
+        }
+        
+        .cta h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .button {
+            display: inline-flex;
+            align-items: center;
+            background-color: #FFFFFF;
+            color: #3B82F6;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.125rem;
+            transition: background-color 0.3s;
+        }
+        
+        .button:hover {
+            background-color: #F3F4F6;
+        }
+        
+        .button svg {
+            width: 20px;
+            height: 20px;
+            margin-left: 0.5rem;
+        }
+        
+        .navigation {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+        }
+        
+        .nav-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #3B82F6;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .nav-dot.active {
+            transform: scale(1.5);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .feature h2 {
+                font-size: 2rem;
+            }
+            
+            .cta h2 {
+                font-size: 2.5rem;
+            }
+            
+            .navigation {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <section class="section hero" id="hero">
+            <div class="logo">
+                <svg viewBox="0 0 200 100">
+                    <defs>
+                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#3B82F6" />
+                            <stop offset="100%" stop-color="#60A5FA" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M10 50 Q50 10 100 50 T190 50" fill="none" stroke="url(#logoGradient)" stroke-width="20" stroke-linecap="round" />
+                    <text x="100" y="65" font-family="Arial, sans-serif" font-size="60" font-weight="bold" fill="white" text-anchor="middle">EZ</text>
+                    <circle cx="170" cy="50" r="15" fill="white" />
+                </svg>
+            </div>
+            <h1>EZgame</h1>
+            <p>开源免费的轻量级游戏引擎</p>
+            <svg class="arrow-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <polyline points="19 12 12 19 5 12"></polyline>
+            </svg>
+        </section>
+
+        <section class="section feature" id="simple">
+            <div class="feature-icon">&#9998;</div>
+            <h2>简单</h2>
+            <p>直观的API和清晰的文档，让游戏开发变得轻而易举。</p>
+        </section>
+
+        <section class="section feature" id="lightweight">
+            <div class="feature-icon">&#9889;</div>
+            <h2>轻量</h2>
+            <p>优化的核心引擎，确保快速加载和流畅的游戏体验。</p>
+        </section>
+
+        <section class="section feature" id="opensource">
+            <div class="feature-icon">&#128187;</div>
+            <h2>免费开源</h2>
+            <p>对个人开发者完全免费，开源代码让您可以自由定制。</p>
+        </section>
+
+        <section class="section cta" id="cta">
+            <h2>准备好开始了吗？</h2>
+            <a href="#" class="button">
+                开始使用
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </a>
+        </section>
+    </div>
+
+    <nav class="navigation">
+        <div class="nav-dot" data-target="hero"></div>
+        <div class="nav-dot" data-target="simple"></div>
+        <div class="nav-dot" data-target="lightweight"></div>
+        <div class="nav-dot" data-target="opensource"></div>
+        <div class="nav-dot" data-target="cta"></div>
+    </nav>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const logo = document.querySelector('.logo');
+            const title = document.querySelector('h1');
+            const description = document.querySelector('.hero p');
+            const arrow = document.querySelector('.arrow-down');
+            const features = document.querySelectorAll('.feature');
+            const container = document.querySelector('.container');
+            const sections = document.querySelectorAll('.section');
+            const navDots = document.querySelectorAll('.nav-dot');
+
+            // Trigger initial animations
+            setTimeout(() => {
+                logo.classList.add('visible');
+                setTimeout(() => title.classList.add('visible'), 500);
+                setTimeout(() => description.classList.add('visible'), 1000);
+                setTimeout(() => arrow.classList.add('visible'), 1500);
+            }, 100);
+
+            // Intersection Observer for features
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        updateNavDots(entry.target.id);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            sections.forEach(section => observer.observe(section));
+
+            // Logo hover effect
+            logo.addEventListener('mouseenter', () => {
+                logo.querySelector('text').style.transform = 'scale(1.1)';
+                logo.querySelector('circle').style.animation = 'bounce 1s infinite';
+            });
+
+            logo.addEventListener('mouseleave', () => {
+                logo.querySelector('text').style.transform = 'scale(1)';
+                logo.querySelector('circle').style.animation = 'none';
+            });
+
+            // Smooth scroll for arrow and nav dots
+            arrow.addEventListener('click', () => {
+                container.scrollTo({
+                    top: window.innerHeight,
+                    behavior: 'smooth'
+                });
+            });
+
+            navDots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    const targetId = dot.getAttribute('data-target');
+                    const targetSection = document.getElementById(targetId);
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+            // Update nav dots
+            function updateNavDots(currentSectionId) {
+                navDots.forEach(dot => {
+                    if (dot.getAttribute('data-target') === currentSectionId) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+            }
+
+            // Manually trigger scroll event on page load
+            window.dispatchEvent(new Event('scroll'));
+        });
+    </script>
+</body>
+</html>
