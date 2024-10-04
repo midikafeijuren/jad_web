@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HKdog - 开源黑客工具合集</title>
+    <style>
+        @keyframes codeRain {
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glitch {
+            0% {
+                transform: translate(0);
+            }
+            20% {
+                transform: translate(-5px, 5px);
+            }
+            40% {
+                transform: translate(-5px, -5px);
+            }
+            60% {
+                transform: translate(5px, 5px);
+            }
+            80% {
+                transform: translate(5px, -5px);
+            }
+            100% {
+                transform: translate(0);
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #0a0a0a;
+            color: #00ff00;
+            overflow-x: hidden;
+        }
+
+        .container {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+        }
+
+        .section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            scroll-snap-align: start;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .code-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .code-rain span {
+            color: #00ff00;
+            font-size: 1.2em;
+            position: absolute;
+            top: -20px;
+            animation: codeRain 5s linear infinite;
+            opacity: 0.5;
+        }
+
+        .logo {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out, glitch 5s infinite alternate;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px #00ff00;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px #00ff00;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        p {
+            font-size: 1.5rem;
+            max-width: 600px;
+            text-align: center;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 1s both;
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            font-size: 1.5rem;
+            color: #0a0a0a;
+            background-color: #00ff00;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out 1.5s both;
+        }
+
+        .cta-button:hover {
+            background-color: #0a0a0a;
+            color: #00ff00;
+            box-shadow: 0 0 20px #00ff00;
+        }
+
+        .navigation {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+        }
+
+        .nav-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #00ff00;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .nav-dot.active {
+            transform: scale(1.5);
+            box-shadow: 0 0 10px #00ff00;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            width: 80%;
+            max-width: 1200px;
+        }
+
+        .tool-card {
+            background-color: rgba(0, 255, 0, 0.1);
+            border: 1px solid #00ff00;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+        }
+
+        .tool-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .tool-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tool-description {
+            font-size: 1rem;
+            color: #00cc00;
+        }
+    </style>
+</head>
+<body>
+    <div class="code-rain"></div>
+    <div class="container">
+        <section class="section" id="hero">
+            <svg class="logo" viewBox="0 0 200 200">
+                <rect width="200" height="200" fill="#0a0a0a" />
+                <path d="M40 40 L100 40 L100 100 L160 100 L160 160 L100 160 L100 100 L40 100 Z" fill="none" stroke="#00ff00" stroke-width="10" />
+                <text x="50" y="140" font-family="'Courier New', monospace" font-size="60" fill="#00ff00">HK</text>
+            </svg>
+            <h1>HKdog</h1>
+            <p>开源黑客工具合集</p>
+        </section>
+
+        <section class="section" id="opensource">
+            <div class="feature-icon">&#128279;</div>
+            <h2>开源</h2>
+            <p>完全开放源代码，欢迎贡献和定制</p>
+        </section>
+
+        <section class="section" id="simple">
+            <div class="feature-icon">&#128161;</div>
+            <h2>简单</h2>
+            <p>直观的界面和操作，快速上手</p>
+        </section>
+
+        <section class="section" id="useful">
+            <div class="feature-icon">&#128295;</div>
+            <h2>好用</h2>
+            <p>强大的功能，满足各种黑客需求</p>
+        </section>
+
+        <section class="section" id="tools">
+            <h2>工具介绍</h2>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">&#128273;</div>
+                    <h3 class="tool-name">密码破解器</h3>
+                    <p class="tool-description">高效的密码破解工具，支持多种加密算法</p>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">&#128269;</div>
+                    <h3 class="tool-name">网络扫描器</h3>
+                    <p class="tool-description">快速识别网络中的设备和开放端口</p>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">&#128274;</div>
+                    <h3 class="tool-name">加密通信</h3>
+                    <p class="tool-description">安全的端到端加密通信工具</p>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">&#128187;</div>
+                    <h3 class="tool-name">漏洞扫描</h3>
+                    <p class="tool-description">自动化漏洞检测和报告生成</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="cta">
+            <h2>准备好开始了吗？</h2>
+            <a href="#" class="cta-button">开始使用</a>
+        </section>
+    </div>
+
+    <nav class="navigation">
+        <div class="nav-dot" data-target="hero"></div>
+        <div class="nav-dot" data-target="opensource"></div>
+        <div class="nav-dot" data-target="simple"></div>
+        <div class="nav-dot" data-target="useful"></div>
+        <div class="nav-dot" data-target="tools"></div>
+        <div class="nav-dot" data-target="cta"></div>
+    </nav>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.querySelector('.container');
+            const sections = document.querySelectorAll('.section');
+            const navDots = document.querySelectorAll('.nav-dot');
+            const codeRainElement = document.querySelector('.code-rain');
+
+            // Create code rain
+            function createCodeRain() {
+                for (let i = 0; i < 100; i++) {
+                    const span = document.createElement('span');
+                    span.textContent = Math.random() < 0.5 ? '0' : '1';
+                    span.style.left = Math.random() * 100 + '%';
+                    span.style.animationDuration = Math.random() * 3 + 2 + 's';
+                    span.style.opacity = Math.random() * 0.5 + 0.1;
+                    codeRainElement.appendChild(span);
+                }
+            }
+
+            createCodeRain();
+
+            // Intersection Observer for sections
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        updateNavDots(entry.target.id);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            sections.forEach(section => observer.observe(section));
+
+            // Smooth scroll for nav dots
+            navDots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    const targetId = dot.getAttribute('data-target');
+                    const targetSection = document.getElementById(targetId);
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+            // Update nav dots
+            function updateNavDots(currentSectionId) {
+                navDots.forEach(dot => {
+                    if (dot.getAttribute('data-target') === currentSectionId) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+            }
+
+            // Glitch effect on logo hover
+            const logo = document.querySelector('.logo');
+            logo.addEventListener('mouseover', () => {
+                logo.style.animation = 'glitch 0.5s infinite';
+            });
+            logo.addEventListener('mouseout', () => {
+                logo.style.animation = 'fadeInUp 1s ease-out, glitch 5s infinite alternate';
+            });
+
+            // Manually trigger scroll event on page load
+            window.dispatchEvent(new Event('scroll'));
+        });
+    </script>
+</body>
+</html>
