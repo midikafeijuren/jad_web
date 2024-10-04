@@ -215,11 +215,12 @@
     <main>
         <section id="我们的项目">
             <h1>JAD工作室 - 一个啥都干的工作室</h1>
-            <div class="search-container">
-               <meta charset="UTF-8">
+            
+            <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Search Functionality</title>
+                <title>Find Project</title>
                 <link rel="stylesheet" href="find/find.css">
+                
      
      
                 <div class="search-container">
@@ -227,11 +228,11 @@
                     <ul id="searchResults"></ul>
                 </div>
                 <script src="find/find.js"></script>
-       
-                
-                
-                
-                
+
+
+            
+
+
             <h2>推荐项目</h2>
             <div class="project">
                 <h3><a href="project/方圆/project_fangyuan.html">方圆解释器-中文编程</a></h3>
@@ -267,7 +268,7 @@
 
         <section id="联系我们">
             <h2>联系我们</h2>
-            <p>Email: <a href="mailto:yonghumeng@163.com">yonghumeng@163.com</a></p>
+            <p>Email: <a href="mailto:jadstudio@example.com">jadstudio@example.com</a></p>
         </section>
     </main>
 
@@ -299,13 +300,7 @@
             observer.observe(section);
         });
 
-        // Simple search functionality
-        const searchInput = document.getElementById('searchInput');
-        const searchResults = document.getElementById('searchResults');
-        const projects = [
-            { name: '方圆解释器', keywords: ['中文编程', '解释器'] },
-            // Add more projects here
-        ];
+
 
         searchInput.addEventListener('input', function() {
             const searchTerm = this.value.toLowerCase();
