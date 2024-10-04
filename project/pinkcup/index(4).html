@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pink Cup - 开源加密通信工具</title>
+    <style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        @keyframes moveStripes {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 50px 50px;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #FFF0F5;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+        }
+
+        .section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            scroll-snap-align: start;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: repeating-linear-gradient(
+                45deg,
+                #FFF0F5,
+                #FFF0F5 10px,
+                #FFE4E1 10px,
+                #FFE4E1 20px
+            );
+            opacity: 0.5;
+            z-index: -1;
+            animation: moveStripes 2s linear infinite;
+        }
+
+        .logo {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out, float 3s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #FF69B4;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out 0.5s both;
+            position: relative;
+            z-index: 1;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: #FF69B4;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+            position: relative;
+            z-index: 1;
+        }
+
+        p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 1s both;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+            color: #FF69B4;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            color: #fff;
+            background-color: #FF69B4;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out 1.5s both;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button:hover {
+            background-color: #FF1493;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.3);
+        }
+
+        .navigation {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+        }
+
+        .nav-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #FF69B4;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .nav-dot.active {
+            transform: scale(1.5);
+            box-shadow: 0 0 10px #FF69B4;
+        }
+
+        code {
+            background-color: #FFB6C1;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <section class="section" id="hero">
+            <svg class="logo" viewBox="0 0 200 200">
+                <defs>
+                    <linearGradient id="cupGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#FF69B4;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#FF1493;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <path d="M40,180 L160,180 L180,60 C180,40 140,40 140,60 L130,150 L70,150 L60,60 C60,40 20,40 20,60 L40,180 Z" fill="url(#cupGradient)" />
+                <path d="M70,30 L130,30 L140,10 L60,10 Z" fill="#FF69B4" />
+                <circle cx="100" cy="90" r="30" fill="#FFF" opacity="0.3" />
+            </svg>
+            <h1>Pink Cup</h1>
+            <p>开源加密通信工具</p>
+        </section>
+
+        <section class="section" id="opensource">
+            <div class="feature-icon">&#128279;</div>
+            <h2>开源</h2>
+            <p>Pink Cup 是一个完全开源的项目，欢迎社区贡献和审查，确保安全性和透明度。</p>
+        </section>
+
+        <section class="section" id="simple">
+            <div class="feature-icon">&#128161;</div>
+            <h2>简单</h2>
+            <p>直观的界面和操作，让加密通信变得轻而易举。无需复杂的设置，即可开始安全交流。</p>
+        </section>
+
+        <section class="section" id="secure">
+            <div class="feature-icon">&#128274;</div>
+            <h2>安全</h2>
+            <p>采用创新的 PKP 加密算法，结合时间因素，提供前所未有的安全保障。即使知道密钥，也难以破解。</p>
+        </section>
+
+        <section class="section" id="about">
+            <h2>关于 Pink Cup</h2>
+            <p>Pink Cup（简称 pkp）是一个致力于加密即时通信的开源项目。我们的 PKP 加密算法与时间紧密相连，即使使用相同的密钥和数据，在不同时间加密的结果也是不同的。</p>
+            <p>加密者可以设定"最佳解密时间"，解密难度会随时间变化。PKP 算法进行三次加密：<code>密钥 -> 时间 -> 密钥</code>，使得在不知道密钥和时间的情况下，暴力破解几乎不可能。</p>
+        </section>
+
+        <section class="section" id="cta">
+            <h2>准备好开始安全通信了吗？</h2>
+            <a href="#" class="cta-button">开始使用 Pink Cup</a>
+        </section>
+    </div>
+
+    <nav class="navigation">
+        <div class="nav-dot" data-target="hero"></div>
+        <div class="nav-dot" data-target="opensource"></div>
+        <div class="nav-dot" data-target="simple"></div>
+        <div class="nav-dot" data-target="secure"></div>
+        <div class="nav-dot" data-target="about"></div>
+        <div class="nav-dot" data-target="cta"></div>
+    </nav>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.querySelector('.container');
+            const sections = document.querySelectorAll('.section');
+            const navDots = document.querySelectorAll('.nav-dot');
+
+            // Intersection Observer for sections
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        updateNavDots(entry.target.id);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            sections.forEach(section => observer.observe(section));
+
+            // Smooth scroll for nav dots
+            navDots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    const targetId = dot.getAttribute('data-target');
+                    const targetSection = document.getElementById(targetId);
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+            // Update nav dots
+            function updateNavDots(currentSectionId) {
+                navDots.forEach(dot => {
+                    if (dot.getAttribute('data-target') === currentSectionId) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+            }
+
+            // Logo animation on hover
+            const logo = document.querySelector('.logo');
+            logo.addEventListener('mouseover', () => {
+                logo.style.animation = 'float 0.5s ease-in-out infinite alternate';
+            });
+            logo.addEventListener('mouseout', () => {
+                logo.style.animation = 'fadeInUp 1s ease-out, float 3s ease-in-out infinite';
+            });
+
+            // Manually trigger scroll event on page load
+            window.dispatchEvent(new Event('scroll'));
+        });
+    </script>
+</body>
+</html>
