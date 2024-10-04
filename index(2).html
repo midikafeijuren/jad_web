@@ -1,24 +1,49 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JAD工作室</title>
+    <title>JAD工作室 - 专心做项目的电子工作室</title>
     <meta name="keyword" content="JAD工作室,杰德工作室,jad电子工作室,jad">
     <meta name="description" content="JAD工作室，专心做项目的电子工作室">
-    
-    <link rel="stylesheet" href="styles.css">
-</head>
-
-<html lang="en">
-<head>
-
     <style>
-        body {
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        * {
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
         }
 
         header {
@@ -26,229 +51,275 @@
             top: 0;
             left: 0;
             width: 100%;
-            background-color: #333;
-            color: white;
-            padding: 10px 0;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
         }
 
         nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
             max-width: 1200px;
             margin: 0 auto;
-            position: relative;
         }
 
-        .navbar {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .navbar li {
-            display: inline;
-            background-color: #333; /* 菜单背景颜色 */
-            padding: 10px 20px;
-            border-radius: 5px;
-            margin-right: 10px; /* 添加右边距 */
-        }
-
-        .navbar a {
-            color: white;
-            text-decoration: none;
-        }
-
-        .navbar a:hover {
-            background-color: #555;
-            color: white;
-        }
-
-        .jad-studio {
-            background-color: #333333;
-            color: white; /* 文字颜色与背景颜色一致 */
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 20px;
+        .logo {
+            font-size: 1.5rem;
             font-weight: bold;
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .logo:hover {
+            color: #23a6d5;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #23a6d5;
+        }
+
+        main {
+            padding-top: 80px;
+        }
+
+        section {
+            padding: 5rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1, h2 {
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        h1 {
+            font-size: 2.5rem;
             text-align: center;
-            order: -1; /* 放在最左边 */
+        }
+
+        h2 {
+            font-size: 2rem;
+            border-bottom: 2px solid #23a6d5;
+            padding-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        .project, .member {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project:hover, .member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .project h3, .member h3 {
+            color: #23a6d5;
+            margin-bottom: 0.5rem;
+        }
+
+        .search-container {
+            margin-bottom: 2rem;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        #searchResults {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: #333;
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                margin-top: 1rem;
+            }
+
+            .nav-links li {
+                margin-left: 0;
+                margin-right: 1rem;
+            }
         }
     </style>
 </head>
-
-
-
-
 <body>
     <header>
         <nav>
-            <ul class="navbar">
-                <li><a href="#我们的项目">Our Projects</a></li>
-                <li><a href="#我们的团队">Our Team</a></li>
-                <li><a href="#我们的故事">Our Story</a></li>
-                <li><a href="#联系我们">Contact Us</a></li>
-                <button id="refreshButton" class="jad-studio">
-                JAD
-                </button>
+            <a href="#" class="logo">JAD工作室</a>
+            <ul class="nav-links">
+                <li><a href="#我们的项目">我们的项目</a></li>
+                <li><a href="#我们的团队">我们的团队</a></li>
+                <li><a href="#我们的故事">我们的故事</a></li>
+                <li><a href="#联系我们">联系我们</a></li>
             </ul>
         </nav>
     </header>
 
-
-
-    <script>
-        document.getElementById('refreshButton').addEventListener('click', function() {
-            location.reload();
-        });
-    </script>
-    <!-- 其他内容 -->
-    <div style="margin-top: 60px;">
-   
-    </div>
-</body>
-</html>
-
-
     <main>
-        
-        
         <section id="我们的项目">
-            <br>
-            
-            <h1 {text-align: center}>JAD工作室
-            一个啥都干的工作室</h1>
-            
-
-
-            
-
-
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Search Functionality</title>
-                <link rel="stylesheet" href="find/find.css">
-     
-     
-                <div class="search-container">
-                    <input type="text" id="searchInput" placeholder="输入项目关键词">
-                    <ul id="searchResults"></ul>
-                </div>
-                <script src="find/find.js"></script>
-       
- 
-
-
-
-
-
+            <h1>JAD工作室 - 一个啥都干的工作室</h1>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="输入项目关键词">
+                <ul id="searchResults"></ul>
+            </div>
+            <h2>推荐项目</h2>
             <div class="project">
-                <h2>
-                    推荐项目
-                </h2>
-                <!--<img src="path/to/project1.jpg" alt="Project 1">-->
-                
-                
-                       
-                        <style>
-                            a {
-                                color: rgb(0, 0, 0);
-                                text-decoration: none;
-                                transition: transform 0.3s ease;
-                            }
-                    
-                            a:hover {
-                                transform: scale(1.1);
-                            }
-                        </style>
-                    
-                    <body>
-                        <a href="project/方圆/project_fangyuan.html">
-                            <h3>方圆解释器-中文编程</h3>
-                        </a>
-                    </body>
-                    
-                
-                    <p>方圆解释器 一种用中文编程的语言解释器</p>
-            
-            
-            
-                </div>
-            <!-- Add more projects as needed -->
+                <h3><a href="project/方圆/project_fangyuan.html">方圆解释器-中文编程</a></h3>
+                <p>方圆解释器 一种用中文编程的语言解释器</p>
+            </div>
         </section>
 
         <section id="我们的团队">
             <h2>我们的团队</h2>
             <div class="member">
-                <!---<img src="photo.jpg" alt="描述文字" width="300" height="200">-->
-                <h3>
-                    米帝咖啡巨人
-                </h3>
-                <!--<img src="project/pinkcup/mdkfjr.jpeg" alt="图片仅供参考" width="200" height="200">-->
-                
-                
-                
-               
-            <p>
-                JAD工作室的程序员,负责全栈开发,运维,所有代码编写
-            </p>
-                
-                <br>
-                <br>
-                <h3>
-                    澤衵（ga ni）
-                </h3>
-                <p>
-                     帅气逼人,是工作室的美工,喜欢摸鱼和贾天泽,最喜欢的学科是生物,不喜欢吃甜的所以患上了低血糖,略微贫血,超喜欢熬夜,最喜欢的明星是汤姆费尔顿,最喜欢的书是哈利波特,喜欢用哔哩哔哩和老福特,是16人格中的isfp 小画家哦,超喜欢喝牛奶,梦想是当医生,喜欢傻笑
-                </p>
-            <br>
-                <br>
-                    <h3>
-                        M
-                    </h3>
-                <p>
-                    工作室的美工
-                </p>
-            
+                <h3>米帝咖啡巨人</h3>
+                <p>JAD工作室的程序员，负责全栈开发、运维、所有代码编写</p>
             </div>
-            
+            <div class="member">
+                <h3>澤衵（ga ni）</h3>
+                <p>帅气逼人，是工作室的美工，喜欢摸鱼和贾天泽，最喜欢的学科是生物，不喜欢吃甜的所以患上了低血糖，略微贫血，超喜欢熬夜，最喜欢的明星是汤姆费尔顿，最喜欢的书是哈利波特，喜欢用哔哩哔哩和老福特，是16人格中的isfp 小画家哦，超喜欢喝牛奶，梦想是当医生，喜欢傻笑</p>
+            </div>
+            <div class="member">
+                <h3>M</h3>
+                <p>工作室的美工</p>
+            </div>
         </section>
 
         <section id="我们的故事">
             <h2>我们的故事</h2>
-            <p>2019年几个在网上认识的普通人创立"远航"工作室,米帝就是其中一员</p>
-            <p>2020年至2022年初"远航"工作室并没有作出什么项目并且他们并不团结,没有人想付出</p>
-            <p>2022年末"远航"工作室内部爆发大矛盾,工作室就此解散</p>
+            <p>2019年几个在网上认识的普通人创立"远航"工作室，米帝就是其中一员</p>
+            <p>2020年至2022年初"远航"工作室并没有作出什么项目并且他们并不团结，没有人想付出</p>
+            <p>2022年末"远航"工作室内部爆发大矛盾，工作室就此解散</p>
             <p>2023年初米帝创建了杰德工作室(JAD工作室)</p>
             <p>2024年米帝邀请它的朋友加入工作室并开始进行项目开发</p>
-            <p>2025年的故事,我们将续写...</p>
-        
+            <p>2025年的故事，我们将续写...</p>
         </section>
 
         <section id="联系我们">
             <h2>联系我们</h2>
-            <form action="/submit" method="post">
-                <!--
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <label for="message">Message:</label>
-                <textarea id="message" name="message" required></textarea>
-                <button type="submit">Send Message</button>
-                -->
-                <p>
-                    email: yonghumeng@163.com
-                </p>
-            </form>
+            <p>Email: <a href="mailto:jadstudio@example.com">jadstudio@example.com</a></p>
         </section>
     </main>
 
     <footer>
         <p>版权所有 &copy; 2024 JAD工作室. 保留所有权利.</p>
-    </footer>       
+    </footer>
 
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
 
+        // Intersection Observer for fade-in effect
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
 
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
 
+        // Simple search functionality
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+        const projects = [
+            { name: '方圆解释器', keywords: ['中文编程', '解释器'] },
+            // Add more projects here
+        ];
 
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const filteredProjects = projects.filter(project => 
+                project.name.toLowerCase().includes(searchTerm) || 
+                project.keywords.some(keyword => keyword.toLowerCase().includes(searchTerm))
+            );
+
+            searchResults.innerHTML = '';
+            filteredProjects.forEach(project => {
+                const li = document.createElement('li');
+                li.textContent = project.name;
+                searchResults.appendChild(li);
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.9)';
+                header.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
 </html>
