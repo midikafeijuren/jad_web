@@ -1,6 +1,6 @@
 // app.js
 const data = {
-    "pink cup(粉红杯)": "project/pinkcup/project_pinkcup.html",
+    "pink cup(粉红杯)": "project/pinkcup/index(4).html",
     "hkdog": "project/hkdog/index(1).html",
     "方圆解释器-中文编程" : "project/方圆/index(3).html",
     "EZgame" : "project/EZgame/index.html"
