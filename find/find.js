@@ -1,7 +1,7 @@
 // app.js
 const data = {
     "pink cup(粉红杯)": "project/pinkcup/project_pinkcup.html",
-    "hkdog": "project/hkdog/project_hkdog.html",
+    "hkdog": "project/hkdog/index(1).html",
     "方圆解释器-中文编程" : "project/方圆/project_fangyuan.html",
     "EZgame" : "project/EZgame/index.html"
     
